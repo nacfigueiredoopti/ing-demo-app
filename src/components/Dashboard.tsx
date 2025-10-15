@@ -142,6 +142,19 @@ export const Dashboard: React.FC = () => {
   const [showSavingsGoals] = useDecision(FeatureFlags.SHOW_SAVINGS_GOALS);
   const [enableQuickTransfer] = useDecision(FeatureFlags.ENABLE_QUICK_TRANSFER);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('🔍 Optimizely Debug Info:');
+    console.log('SDK Key:', process.env.REACT_APP_OPTIMIZELY_SDK_KEY ? 'Set' : 'NOT SET');
+    console.log('Button Color Decision:', buttonColorDecision);
+    console.log('Button Color Value:', buttonColor);
+    console.log('Dashboard Layout Decision:', dashboardLayoutDecision);
+    console.log('Layout Value:', layout);
+    console.log('Hero Banner Decision:', heroBannerDecision);
+    console.log('Show Savings Goals Decision:', showSavingsGoals);
+    console.log('Enable Quick Transfer Decision:', enableQuickTransfer);
+  }, [buttonColorDecision, dashboardLayoutDecision, heroBannerDecision, showSavingsGoals, enableQuickTransfer, buttonColor, layout]);
+
   const handleCTAClick = () => {
     trackEvent(Events.CTA_CLICKED, {
       buttonColor,
