@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
+import { OptimizelyProvider, createInstance, enums } from '@optimizely/react-sdk';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { GlobalStyles } from './styles/GlobalStyles';
@@ -18,30 +18,38 @@ const optimizely = createInstance({
 });
 
 function App() {
-  const [, forceUpdate] = useState(0);
+  const [updateKey, setUpdateKey] = useState(0);
 
   useEffect(() => {
     // Listen for datafile updates
     const onUpdate = () => {
-      console.log('Optimizely datafile updated! Feature flags refreshed.');
-      forceUpdate(prev => prev + 1); // Force re-render when datafile updates
+      console.log('🔄 Optimizely datafile updated! Feature flags will refresh.');
+      // Force re-render to propagate new flag values
+      setUpdateKey(prev => prev + 1);
     };
 
     // Listen for initial ready state
     const onReady = () => {
-      console.log('Optimizely SDK ready');
+      console.log('✅ Optimizely SDK ready');
+      setUpdateKey(prev => prev + 1);
     };
 
-    // Subscribe to update events
+    // Subscribe to update events using the correct enum
     optimizely.onReady().then(onReady);
-    const listenerId = optimizely.notificationCenter.addNotificationListener(
-      'OPTIMIZELY_CONFIG_UPDATE',
+
+    const notificationType = enums?.NOTIFICATION_TYPES?.OPTIMIZELY_CONFIG_UPDATE ||
+                            'OPTIMIZELY_CONFIG_UPDATE';
+
+    const listenerId = optimizely.notificationCenter?.addNotificationListener(
+      notificationType,
       onUpdate
     );
 
+    console.log('👂 Listening for Optimizely config updates...');
+
     // Cleanup
     return () => {
-      if (listenerId) {
+      if (listenerId && optimizely.notificationCenter) {
         optimizely.notificationCenter.removeNotificationListener(listenerId);
       }
     };
@@ -51,6 +59,7 @@ function App() {
     <OptimizelyProvider
       optimizely={optimizely}
       user={{ id: 'demo-user-123' }}
+      key={updateKey}
     >
       <ThemeProvider theme={theme}>
         <GlobalStyles />
