@@ -18,19 +18,18 @@ const optimizely = createInstance({
 });
 
 function App() {
-  const [datafileReady, setDatafileReady] = useState(false);
+  const [, forceUpdate] = useState(0);
 
   useEffect(() => {
     // Listen for datafile updates
     const onUpdate = () => {
       console.log('Optimizely datafile updated! Feature flags refreshed.');
-      setDatafileReady(prev => !prev); // Toggle to force re-render
+      forceUpdate(prev => prev + 1); // Force re-render when datafile updates
     };
 
     // Listen for initial ready state
     const onReady = () => {
       console.log('Optimizely SDK ready');
-      setDatafileReady(true);
     };
 
     // Subscribe to update events
