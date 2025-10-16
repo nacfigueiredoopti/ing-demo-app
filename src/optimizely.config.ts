@@ -7,7 +7,7 @@ export const optimizelyConfig = {
   datafileOptions: {
     urlTemplate: 'https://cdn.optimizely.com/datafiles/%s.json',
     autoUpdate: true,
-    updateInterval: 2000 // Poll for updates every 2 seconds
+    updateInterval: 1000 // Poll for updates every 1 second
   }
 };
 

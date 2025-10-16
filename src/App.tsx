@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { OptimizelyProvider, createInstance } from '@optimizely/react-sdk';
 import { ThemeProvider } from 'styled-components';
@@ -18,6 +18,37 @@ const optimizely = createInstance({
 });
 
 function App() {
+  const [datafileReady, setDatafileReady] = useState(false);
+
+  useEffect(() => {
+    // Listen for datafile updates
+    const onUpdate = () => {
+      console.log('Optimizely datafile updated! Feature flags refreshed.');
+      setDatafileReady(prev => !prev); // Toggle to force re-render
+    };
+
+    // Listen for initial ready state
+    const onReady = () => {
+      console.log('Optimizely SDK ready');
+      setDatafileReady(true);
+    };
+
+    // Subscribe to update events
+    optimizely.onReady().then(onReady);
+    optimizely.notificationCenter.addNotificationListener(
+      'OPTIMIZELY_CONFIG_UPDATE',
+      onUpdate
+    );
+
+    // Cleanup
+    return () => {
+      optimizely.notificationCenter.removeNotificationListener(
+        'OPTIMIZELY_CONFIG_UPDATE',
+        onUpdate
+      );
+    };
+  }, []);
+
   return (
     <OptimizelyProvider
       optimizely={optimizely}
