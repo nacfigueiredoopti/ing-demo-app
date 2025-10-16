@@ -14,6 +14,7 @@ import { Savings } from './components/Savings';
 // Create Optimizely instance
 const optimizely = createInstance({
   sdkKey: optimizelyConfig.sdkKey,
+  datafileOptions: optimizelyConfig.datafileOptions,
 });
 
 function App() {

@@ -3,12 +3,12 @@
 
 export const optimizelyConfig = {
   sdkKey: process.env.REACT_APP_OPTIMIZELY_SDK_KEY || 'YOUR_OPTIMIZELY_SDK_KEY',
-  // Optional: Add datafile URL for faster initialization
-  // datafileOptions: {
-  //   urlTemplate: 'https://cdn.optimizely.com/datafiles/%s.json',
-  //   autoUpdate: true,
-  //   updateInterval: 5000
-  // }
+  // Datafile options for automatic updates
+  datafileOptions: {
+    urlTemplate: 'https://cdn.optimizely.com/datafiles/%s.json',
+    autoUpdate: true,
+    updateInterval: 2000 // Poll for updates every 2 seconds
+  }
 };
 
 // Feature flags used in the demo

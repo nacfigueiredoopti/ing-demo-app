@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDecision, useTrackEvent } from '@optimizely/react-sdk';
 import { FeatureFlags, Events } from '../optimizely.config';
+import { FinancialNews } from './FinancialNews';
+import { MarketTrends } from './MarketTrends';
+import { SpendingInsights } from './SpendingInsights';
+import { TransactionHistory } from './TransactionHistory';
+import { FinancialTips } from './FinancialTips';
 
 const DashboardContainer = styled.div`
   max-width: 1200px;
@@ -259,6 +264,13 @@ export const Dashboard: React.FC = () => {
           </div>
         </Card>
       )}
+
+      {/* New Dynamic Content */}
+      <SpendingInsights />
+      <TransactionHistory />
+      <MarketTrends />
+      <FinancialTips />
+      <FinancialNews />
     </DashboardContainer>
   );
 };
