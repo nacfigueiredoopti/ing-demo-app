@@ -35,17 +35,16 @@ function App() {
 
     // Subscribe to update events
     optimizely.onReady().then(onReady);
-    optimizely.notificationCenter.addNotificationListener(
+    const listenerId = optimizely.notificationCenter.addNotificationListener(
       'OPTIMIZELY_CONFIG_UPDATE',
       onUpdate
     );
 
     // Cleanup
     return () => {
-      optimizely.notificationCenter.removeNotificationListener(
-        'OPTIMIZELY_CONFIG_UPDATE',
-        onUpdate
-      );
+      if (listenerId) {
+        optimizely.notificationCenter.removeNotificationListener(listenerId);
+      }
     };
   }, []);
 
