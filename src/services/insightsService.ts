@@ -33,7 +33,6 @@ interface GraphQLResponse {
 // Optimizely Content Graph endpoint configuration
 const GRAPHQL_ENDPOINT = 'https://cg.optimizely.com/content/v2';
 const SINGLE_KEY = 'pJh0iaTVPjctOtsuYDe1Uar1iNlJbehACzJVSZHOBOHtBxND';
-const APP_KEY = 'HGNEetJZaKQjUkoaTDgsx5U0koXIJaTVhUeSHSkFygUAeeMq';
 
 const MOBILE_CARD_QUERY = `
   query GetMobileCards {
