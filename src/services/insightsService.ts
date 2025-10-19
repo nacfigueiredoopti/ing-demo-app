@@ -51,12 +51,14 @@ const MOBILE_CARD_QUERY = `
 
 export const fetchMobileCards = async (): Promise<MobileCard[]> => {
   try {
-    // Optimizely Content Graph authentication using Authorization header
-    const response = await fetch(GRAPHQL_ENDPOINT, {
+    // Optimizely Content Graph authentication using single_key as query parameter
+    // This is used to fetch published content only
+    const url = `${GRAPHQL_ENDPOINT}?auth=${SINGLE_KEY}`;
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Basic ${btoa(`${SINGLE_KEY}:${APP_KEY}`)}`,
       },
       body: JSON.stringify({
         query: MOBILE_CARD_QUERY,
