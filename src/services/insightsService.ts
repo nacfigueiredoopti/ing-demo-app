@@ -2,6 +2,7 @@ export interface MobileCard {
   id: string;
   title: string;
   body: string;
+  bodyHtml: string;
   image: {
     url: string;
     alt?: string;
@@ -16,10 +17,13 @@ interface GraphQLResponse {
           key?: string;
         };
         Title?: string;
-        Body?: string;
+        Body?: {
+          html?: string;
+        };
         Image?: {
-          url?: string;
-          alt?: string;
+          url?: {
+            default?: string;
+          };
         };
       }>;
     };
@@ -39,10 +43,13 @@ const MOBILE_CARD_QUERY = `
           key
         }
         Title
-        Body
+        Body {
+          html
+        }
         Image {
-          url
-          alt
+          url {
+            default
+          }
         }
       }
     }
@@ -78,16 +85,23 @@ export const fetchMobileCards = async (): Promise<MobileCard[]> => {
     const items = result.data?.MobileCard?.items || [];
 
     return items
-      .filter(item => item.Title && item.Body) // Only include items with required fields
-      .map(item => ({
-        id: item._metadata?.key || Math.random().toString(36).substr(2, 9),
-        title: item.Title || 'Untitled',
-        body: item.Body || '',
-        image: {
-          url: item.Image?.url || '',
-          alt: item.Image?.alt || item.Title || 'Card image',
-        },
-      }));
+      .filter(item => item.Title && item.Body?.html) // Only include items with required fields
+      .map(item => {
+        const bodyHtml = item.Body?.html || '';
+        // Strip HTML tags to get plain text for body
+        const bodyText = bodyHtml.replace(/<[^>]*>/g, '');
+
+        return {
+          id: item._metadata?.key || Math.random().toString(36).substr(2, 9),
+          title: item.Title || 'Untitled',
+          body: bodyText,
+          bodyHtml: bodyHtml,
+          image: {
+            url: item.Image?.url?.default || '',
+            alt: item.Title || 'Card image',
+          },
+        };
+      });
   } catch (error) {
     console.error('Error fetching mobile cards:', error);
     throw error;
