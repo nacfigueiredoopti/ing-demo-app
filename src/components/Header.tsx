@@ -77,6 +77,7 @@ export const Header: React.FC = () => {
           <NavLink to="/accounts" $style={navStyle}>Accounts</NavLink>
           <NavLink to="/transfer" $style={navStyle}>Transfer</NavLink>
           <NavLink to="/savings" $style={navStyle}>Savings</NavLink>
+          <NavLink to="/insights" $style={navStyle}>Insights</NavLink>
         </Nav>
       </HeaderContent>
     </HeaderContainer>

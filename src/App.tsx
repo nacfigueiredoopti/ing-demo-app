@@ -10,6 +10,7 @@ import { Dashboard } from './components/Dashboard';
 import { Accounts } from './components/Accounts';
 import { Transfer } from './components/Transfer';
 import { Savings } from './components/Savings';
+import Insights from './components/Insights';
 
 // Create Optimizely instance
 const optimizely = createInstance({
@@ -70,6 +71,7 @@ function App() {
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/transfer" element={<Transfer />} />
             <Route path="/savings" element={<Savings />} />
+            <Route path="/insights" element={<Insights />} />
           </Routes>
         </Router>
       </ThemeProvider>
