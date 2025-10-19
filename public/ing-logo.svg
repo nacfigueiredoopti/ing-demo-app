@@ -1,7 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
-  <!-- ING Orange background -->
-  <rect width="200" height="80" fill="#FF6200"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80" width="300" height="80">
+  <!-- ING Text in dark blue -->
+  <text x="10" y="60" font-family="ING Me, Arial, sans-serif" font-size="56" font-weight="bold" fill="#003D6A" letter-spacing="-2">ING</text>
 
-  <!-- ING Text in white -->
-  <text x="100" y="55" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">ING</text>
+  <!-- Lion symbol -->
+  <g transform="translate(200, 5)">
+    <!-- Lion body in orange -->
+    <path fill="#FF6200" d="M40,25 C40,25 35,20 30,20 C25,20 20,22 18,25 C16,28 15,32 15,35 C15,38 16,42 18,45 C20,48 25,50 30,50 C35,50 40,48 42,45 L50,50 L52,48 L45,42 C47,39 48,36 48,35 C48,32 46,28 44,26 L48,22 L46,20 L42,24 C41,23 40,25 40,25 Z"/>
+
+    <!-- Lion mane details -->
+    <circle cx="22" cy="28" r="3" fill="#E55A00"/>
+    <circle cx="38" cy="28" r="3" fill="#E55A00"/>
+    <circle cx="18" cy="35" r="2.5" fill="#E55A00"/>
+    <circle cx="42" cy="35" r="2.5" fill="#E55A00"/>
+    <circle cx="20" cy="42" r="2" fill="#E55A00"/>
+    <circle cx="40" cy="42" r="2" fill="#E55A00"/>
+
+    <!-- Lion face features -->
+    <ellipse cx="26" cy="34" rx="2" ry="3" fill="#003D6A"/>
+    <ellipse cx="34" cy="34" rx="2" ry="3" fill="#003D6A"/>
+    <path d="M28,38 Q30,40 32,38" stroke="#003D6A" stroke-width="2" fill="none"/>
+
+    <!-- Lion paws -->
+    <ellipse cx="22" cy="52" rx="4" ry="3" fill="#FF6200"/>
+    <ellipse cx="38" cy="52" rx="4" ry="3" fill="#FF6200"/>
+
+    <!-- Lion tail -->
+    <path d="M45,45 Q50,48 52,52 Q54,56 52,58" stroke="#FF6200" stroke-width="3" fill="none"/>
+    <circle cx="52" cy="60" r="3" fill="#E55A00"/>
+  </g>
 </svg>

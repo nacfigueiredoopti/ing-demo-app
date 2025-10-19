@@ -29,9 +29,12 @@ const LogoContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-  height: 40px;
+  height: 50px;
   width: auto;
   object-fit: contain;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 4px;
 `;
 
 const Nav = styled.nav<{ $style?: string }>`
