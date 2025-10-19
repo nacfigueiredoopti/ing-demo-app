@@ -26,8 +26,10 @@ interface GraphQLResponse {
   };
 }
 
+// Optimizely Content Graph endpoint configuration
 const GRAPHQL_ENDPOINT = 'https://cg.optimizely.com/content/v2';
-const AUTH_TOKEN = 'pJh0iaTVPjctOtsuYDe1Uar1iNlJbehACzJVSZHOBOHtBxND';
+const SINGLE_KEY = 'pJh0iaTVPjctOtsuYDe1Uar1iNlJbehACzJVSZHOBOHtBxND';
+const APP_KEY = 'HGNEetJZaKQjUkoaTDgsx5U0koXIJaTVhUeSHSkFygUAeeMq';
 
 const MOBILE_CARD_QUERY = `
   query GetMobileCards {
@@ -49,11 +51,13 @@ const MOBILE_CARD_QUERY = `
 
 export const fetchMobileCards = async (): Promise<MobileCard[]> => {
   try {
-    const response = await fetch(GRAPHQL_ENDPOINT, {
+    // Optimizely Content Graph uses query parameters for authentication
+    const url = `${GRAPHQL_ENDPOINT}?single_key=${SINGLE_KEY}&app_key=${APP_KEY}`;
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${AUTH_TOKEN}`,
       },
       body: JSON.stringify({
         query: MOBILE_CARD_QUERY,
@@ -61,10 +65,13 @@ export const fetchMobileCards = async (): Promise<MobileCard[]> => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('GraphQL Error Response:', errorText);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
     }
 
     const result: GraphQLResponse = await response.json();
+    console.log('GraphQL Response:', result);
 
     // Transform the GraphQL response to our MobileCard interface
     const items = result.data?.MobileCard?.items || [];
