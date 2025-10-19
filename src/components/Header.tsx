@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { FeatureFlags } from '../optimizely.config';
 
 const HeaderContainer = styled.header<{ $variant?: string }>`
-  background-color: ${props => props.theme.colors.primary};
-  color: white;
+  background-color: white;
+  color: ${props => props.theme.colors.text.primary};
   padding: ${props => props.$variant === 'compact' ? '12px 24px' : '16px 24px'};
   box-shadow: ${props => props.theme.shadows.md};
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 const HeaderContent = styled.div`
@@ -44,16 +45,17 @@ const Nav = styled.nav<{ $style?: string }>`
 `;
 
 const NavLink = styled(Link)<{ $style?: string }>`
-  color: white;
+  color: ${props => props.theme.colors.primary};
   text-decoration: none;
   font-weight: ${props => props.$style === 'bold' ? '600' : '500'};
   font-size: ${props => props.$style === 'compact' ? '14px' : '16px'};
   padding: 8px 12px;
   border-radius: ${props => props.theme.borderRadius.sm};
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.secondary};
   }
 `;
 
@@ -65,9 +67,9 @@ export const Header: React.FC = () => {
   return (
     <HeaderContainer $variant={navStyle}>
       <HeaderContent>
-        <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
           <LogoContainer>
-            <LogoImage src="/ing-logo.svg" alt="ING Logo" />
+            <LogoImage src="/ing-logo.png" alt="ING Logo" />
           </LogoContainer>
         </Link>
         <Nav $style={navStyle}>
