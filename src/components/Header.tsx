@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
       <HeaderContent>
         <Link to="/" style={{ textDecoration: 'none' }}>
           <LogoContainer>
-            <LogoImage src="/ing-logo.png" alt="ING Logo" />
+            <LogoImage src="/ing-logo.svg" alt="ING Logo" />
           </LogoContainer>
         </Link>
         <Nav $style={navStyle}>
